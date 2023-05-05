@@ -62,11 +62,13 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxG.sound.list.add(pauseMusic);
 
+		#if (flixel < "5.3.0")
 		var backBg:FlxSprite = new FlxSprite();
 		backBg.makeGraphic(FlxG.width + 1, FlxG.height + 1, FlxColor.BLACK);
 		backBg.alpha = 0;
 		backBg.scrollFactor.set();
 		add(backBg);
+		#end
 
 		pausebg = new FlxSprite().loadGraphic(Paths.image('ui/pausemenubg'));
 		pausebg.color = 0xFF1E1E1E;
