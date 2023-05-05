@@ -84,7 +84,6 @@ class PauseSubState extends MusicBeatSubstate
 			alpha: 1
 		}, 1, {ease: FlxEase.quadOut});
 
-
 		#if (flixel < "5.3.0")	
 		bg = new FlxBackdrop(Paths.image('ui/checkeredBG', 'preload'), 1, 1, true, true, 1, 1);
 		bg.alpha = 0;
