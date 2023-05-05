@@ -62,13 +62,11 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxG.sound.list.add(pauseMusic);
 
-		#if (flixel < "5.3.0")
-		var backBg:FlxSprite = new FlxSprite();
+		backBg:FlxSprite = new FlxSprite();
 		backBg.makeGraphic(FlxG.width + 1, FlxG.height + 1, FlxColor.BLACK);
 		backBg.alpha = 0;
 		backBg.scrollFactor.set();
 		add(backBg);
-		#end
 
 		pausebg = new FlxSprite().loadGraphic(Paths.image('ui/pausemenubg'));
 		pausebg.color = 0xFF1E1E1E;
@@ -87,11 +85,13 @@ class PauseSubState extends MusicBeatSubstate
 		}, 1, {ease: FlxEase.quadOut});
 
 
+		#if (flixel < "5.3.0")	
 		bg = new FlxBackdrop(Paths.image('ui/checkeredBG', 'preload'), 1, 1, true, true, 1, 1);
 		bg.alpha = 0;
 		bg.antialiasing = FlxG.save.data.globalAntialiasing;
 		bg.scrollFactor.set();
 		add(bg);
+		#end
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.SONG.song;
