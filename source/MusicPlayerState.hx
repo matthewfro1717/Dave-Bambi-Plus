@@ -40,15 +40,15 @@ class MusicPlayerState extends MusicBeatState
     var bg:FlxSprite;
 
     private var healthBarBG:FlxSprite;
-	private var healthBar:FlxBar;
+    private var healthBar:FlxBar;
 
     private var iconP1:HealthIcon;
-	private var iconP2:HealthIcon;
+    private var iconP2:HealthIcon;
 
     private var barText:FlxText;
 
-    var checker:FlxBackdrop = new FlxBackdrop(Paths.image('ui/checkeredBG'), 0.2, 0.2, true, true);
-	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFfd719b);
+    var checker:FlxBackdrop;
+    var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFfd719b);
   
     override function create()
     {
@@ -113,15 +113,18 @@ class MusicPlayerState extends MusicBeatState
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
 
-        gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x558DE7E5, 0xAAE6F0A9], 1, 90, true);
+                gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x558DE7E5, 0xAAE6F0A9], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);
 		gradientBar.antialiasing = FlxG.save.data.globalAntialiasing;
 
-		add(checker);
+		#if (flixel < "5.3.0")
+		checker:FlxBackdrop = new FlxBackdrop(Paths.image('ui/checkeredBG'), 0.2, 0.2, true, true);
 		checker.scrollFactor.set(0, 0.07);
-		checker.antialiasing = FlxG.save.data.globalAntialiasing;
+	        checker.antialiasing = FlxG.save.data.globalAntialiasing;
+	        add(checker);
+		#end
 
         #if desktop
         DiscordClient.changePresence("In the OST Menu", null);
