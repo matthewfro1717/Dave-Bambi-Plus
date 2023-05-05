@@ -2572,7 +2572,8 @@ class PlayState extends MusicBeatState
 				freeplayBG.color = FlxColor.multiply(0xFF4965FF, FlxColor.fromRGB(44, 44, 44));
 				freeplayBG.alpha = 0;
 				add(freeplayBG);
-				
+
+				#if (flixel < "5.3.0")
 				charBackdrop = new FlxBackdrop(Paths.image('recursed/daveScroll'), 1, 1, true, true);
 				charBackdrop.antialiasing = true;
 				charBackdrop.scale.set(2, 2);
@@ -2580,6 +2581,7 @@ class PlayState extends MusicBeatState
 				charBackdrop.color = FlxColor.multiply(charBackdrop.color, FlxColor.fromRGB(44, 44, 44));
 				charBackdrop.alpha = 0;
 				add(charBackdrop);
+				#end
 
 				initAlphabet(daveSongs);
 			case 'roof':
