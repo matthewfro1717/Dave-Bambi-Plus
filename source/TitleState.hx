@@ -157,9 +157,11 @@ class TitleState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
+                #if (flixel < "5.3.0")
 		bgMenu = new FlxBackdrop(Paths.image('ui/titleBg'), 10, 0, true, true);
-        bgMenu.velocity.set(70, 70); //thats it :D- snake
+                bgMenu.velocity.set(70, 70); //thats it :D- snake
 		add(bgMenu);
+		#end
 
 		logoBl = new FlxSprite(-25, -50);
 		if (!awaitingExploitation)
