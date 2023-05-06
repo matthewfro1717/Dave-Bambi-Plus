@@ -157,11 +157,9 @@ class TitleState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
-		#if (flixel < "5.3.0")
 		bgMenu = new FlxBackdrop(Paths.image('ui/titleBg'), 10, 0, true, true);
-                bgMenu.velocity.set(70, 70); //thats it :D- snake
+        bgMenu.velocity.set(70, 70); //thats it :D- snake
 		add(bgMenu);
-		#end
 
 		logoBl = new FlxSprite(-25, -50);
 		if (!awaitingExploitation)
@@ -172,6 +170,8 @@ class TitleState extends MusicBeatState
 		{
 			logoBl.frames = Paths.getSparrowAtlas('ui/logoBumpinExpunged');
 			Application.current.window.title = "Friday Night Funkin' | VS. EXPUNGED";
+			FlxG.save.data.modchart = false;
+			FlxG.save.data.botplay = false;
 		}
 		logoBl.antialiasing = FlxG.save.data.globalAntialiasing;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 1);
