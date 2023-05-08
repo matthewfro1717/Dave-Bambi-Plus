@@ -47,7 +47,7 @@ class MusicPlayerState extends MusicBeatState
 
     private var barText:FlxText;
 
-    var checker:FlxBackdrop = new FlxBackdrop(Paths.image('ui/checkeredBG'), 0.2, 0.2, true, true);
+    var checker;
     var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFfd719b);
   
     override function create()
