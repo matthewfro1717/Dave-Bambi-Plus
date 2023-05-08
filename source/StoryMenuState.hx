@@ -22,8 +22,6 @@ import flixel.util.FlxTimer;
 import Discord.DiscordClient;
 #end
 
-import hxcodec.VideoHandler;
-
 using StringTools;
 
 class StoryMenuState extends MusicBeatState
@@ -246,7 +244,7 @@ class StoryMenuState extends MusicBeatState
 			PlayState.isStoryMode = true;
 			selectedWeek = true;
 
-			PlayState.SONG = Song.loadFromJson(Highscore.formatSong(PlayState.storyPlaylist[0].toLowerCase(), 1));
+			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase());
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;
 			new FlxTimer().start(1, function(tmr:FlxTimer)
@@ -349,7 +347,7 @@ class StoryMenuState extends MusicBeatState
 		//txtTracklist.text = txtTracklist.text += " - ";
 
 		#if !switch
-		intendedScore = Highscore.getWeekScore(curWeek, 1);
+		intendedScore = Highscore.getWeekScore(curWeek);
 		#end
 	}
 }

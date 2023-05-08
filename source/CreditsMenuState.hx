@@ -26,6 +26,7 @@ import flixel.tweens.misc.ColorTween;
 import flixel.util.FlxStringUtil;
 import lime.utils.Assets;
 import flixel.addons.display.FlxBackdrop;
+import flixel.util.FlxGradient; 
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -59,6 +60,9 @@ class CreditsMenuState extends MusicBeatState
    var hasSocialMedia:Bool = true;
 
    public var DoFunnyScroll:Bool = false;
+
+   var checker:FlxBackdrop = new FlxBackdrop(Paths.image('ui/checkeredBG'), 0.2, 0.2, true, true);
+	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFfd719b);
    
    var peopleInCredits:Array<Person> = 
    [
@@ -77,13 +81,6 @@ class CreditsMenuState extends MusicBeatState
       new Person("0cksell", CreditsType.Plus,
       [
          new Social('youtube', 'https://www.youtube.com/channel/UCTsFYoxsx5i36HK9kGGHl5Q'),
-      ]),
-
-      //extra keys addon creator
-      new Person("Magman", CreditsType.EKACreator,
-      [
-         new Social('youtube', 'https://www.youtube.com/channel/UC1IWpXJIB0wYTCnQI0E9HMQ'),
-         new Social('twitter', 'https://twitter.com/magar_manh')
       ]),
 
       // Developers //
@@ -474,25 +471,47 @@ class CreditsMenuState extends MusicBeatState
          bg.loadGraphic(MainMenuState.randomizeBG());
          bg.color = FlxColor.LIME;
          bg.scrollFactor.set();
+         bg.antialiasing = FlxG.save.data.globalAntialiasing;
          add(bg);
 
 
          overlay.color = FlxColor.LIME;
          overlay.scrollFactor.set();
+         overlay.antialiasing = FlxG.save.data.globalAntialiasing;
          add(overlay);
+
+         gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x558DE7E5, 0xAAE6F0A9], 1, 90, true);
+         gradientBar.y = FlxG.height - gradientBar.height;
+         add(gradientBar);
+         gradientBar.scrollFactor.set(0, 0);
+         gradientBar.antialiasing = FlxG.save.data.globalAntialiasing;
+   
+         add(checker);
+         checker.scrollFactor.set(0, 0.07);
+         checker.antialiasing = FlxG.save.data.globalAntialiasing;
       }
       else
       {
          FlxG.sound.playMusic(Paths.music('creditsTheme'));
          //PLACEHOLDER.
          bg.loadGraphic(MainMenuState.randomizeBG());
+         bg.antialiasing = FlxG.save.data.globalAntialiasing;
          bg.color = FlxColor.GRAY;
          bg.scrollFactor.set();
          add(bg);
-      }
+
+         gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x558DE7E5, 0xAAE6F0A9], 1, 90, true);
+         gradientBar.y = FlxG.height - gradientBar.height;
+         add(gradientBar);
+         gradientBar.scrollFactor.set(0, 0);
+         gradientBar.antialiasing = FlxG.save.data.globalAntialiasing;
    
+         add(checker);
+         checker.scrollFactor.set(0, 0.07);
+         checker.antialiasing = FlxG.save.data.globalAntialiasing;
+      }
+      
       var plus:Array<Person> = new Array<Person>();
-      var ekaCreator:Array<Person> = new Array<Person>();
       var developers:Array<Person> = new Array<Person>();
       var translators:Array<Person> = new Array<Person>();
       var contributors:Array<Person> = new Array<Person>();
@@ -504,7 +523,6 @@ class CreditsMenuState extends MusicBeatState
          switch (person.creditsType)
          {
             case Plus: plus.push(person);
-            case EKACreator: ekaCreator.push(person);
             case Dev: developers.push(person);
             case Translator: translators.push(person);
             case Contributor: contributors.push(person);
@@ -516,16 +534,13 @@ class CreditsMenuState extends MusicBeatState
       for (i in 0...peopleInCredits.length)
       {
          var currentPerson = peopleInCredits[i];
-         if (currentPerson == plus[0] || currentPerson == developers[0] || currentPerson == translators[0] || currentPerson == contributors[0] || currentPerson == betaTesters[0] || currentPerson == specialThanks[0] || currentPerson == ekaCreator[0])
+         if (currentPerson == plus[0] || currentPerson == developers[0] || currentPerson == translators[0] || currentPerson == contributors[0] || currentPerson == betaTesters[0] || currentPerson == specialThanks[0])
          {
             switch (currentPerson.creditsType)
             {
                case Plus:
                   creditsTypeString = 'Plus';
                   translatedCreditsType = LanguageManager.getTextString('credits_plus');
-               case EKACreator:
-                  creditsTypeString = 'Extra Keys Addon Creator';
-                  translatedCreditsType = LanguageManager.getTextString('credits_ekaCreator');
                case Dev:
                   creditsTypeString = 'Developers';
                   translatedCreditsType = LanguageManager.getTextString('credits_dev');
@@ -547,7 +562,7 @@ class CreditsMenuState extends MusicBeatState
             titleText.borderSize = 3;
             titleText.borderQuality = 3;
             titleText.screenCenter(X);
-            titleText.antialiasing = true;
+            titleText.antialiasing = FlxG.save.data.globalAntialiasing;
             titleText.scrollFactor.set(0, 1);
             if (DoFunnyScroll)
             {
@@ -567,7 +582,7 @@ class CreditsMenuState extends MusicBeatState
          var textItem:FlxText = new FlxText(0, i * 50, 0, currentPerson.name, 32);
          textItem.setFormat(defaultFormat.font, defaultFormat.size, defaultFormat.color, defaultFormat.alignment, defaultFormat.borderStyle, defaultFormat.borderColor);
          textItem.screenCenter(X);
-		   textItem.antialiasing = true;
+		   textItem.antialiasing = FlxG.save.data.globalAntialiasing;
          textItem.scrollFactor.set(0, 1);
 
          var personIcon:PersonIcon = new PersonIcon(textItem);
@@ -575,8 +590,7 @@ class CreditsMenuState extends MusicBeatState
          add(personIcon);
 
          personIcon.visible = !DoFunnyScroll;
-         personIcon.antialiasing = true;
-         if (currentPerson.name == 'Magman') personIcon.antialiasing = false;
+         personIcon.antialiasing = FlxG.save.data.globalAntialiasing;
 
          var creditsTextItem:CreditsText = new CreditsText(textItem, true, personIcon);
 
@@ -609,7 +623,7 @@ class CreditsMenuState extends MusicBeatState
          {
             var logoBl:FlxSprite = new FlxSprite(StupidCameraFollow.x, StupidCameraFollow.y);
             logoBl.frames = Paths.getSparrowAtlas('ui/logoBumpin');
-            logoBl.antialiasing = true;
+            logoBl.antialiasing = FlxG.save.data.globalAntialiasing;
             logoBl.alpha = 0;
             logoBl.x -= logoBl.width / 2;
             logoBl.y -= logoBl.height / 2;
@@ -634,6 +648,8 @@ class CreditsMenuState extends MusicBeatState
    
    override function update(elapsed:Float)
    {
+      checker.x -= 0.21;
+		checker.y -= 0.51;
 
       var fadeTimer:Float = 0.08;
       var upPressed = controls.UP_P;
@@ -862,7 +878,7 @@ class CreditsMenuState extends MusicBeatState
       personName.setFormat(selectedFormat.font, selectedFormat.size, selectedFormat.color, selectedFormat.alignment, selectedFormat.borderStyle, selectedFormat.borderColor);
       personName.screenCenter(X);
       personName.updateHitbox();
-	   personName.antialiasing = true;
+	   personName.antialiasing = FlxG.save.data.globalAntialiasing;
       personName.scrollFactor.set();
       personName.active = false;
       
@@ -870,7 +886,7 @@ class CreditsMenuState extends MusicBeatState
       credits.setFormat(selectedFormat.font, selectedFormat.size, selectedFormat.color, selectedFormat.alignment, selectedFormat.borderStyle, selectedFormat.borderColor);
       credits.screenCenter(X);
       credits.updateHitbox();
-	  credits.antialiasing = true;
+      credits.antialiasing = FlxG.save.data.globalAntialiasing;
       credits.scrollFactor.set();
       credits.active = false;
 
@@ -917,7 +933,7 @@ class CreditsMenuState extends MusicBeatState
             discordText.alpha = 0;
             discordText.updateHitbox();
             discordText.scrollFactor.set();
-			discordText.antialiasing = true;
+            discordText.antialiasing = FlxG.save.data.globalAntialiasing;
             discordText.active = false;
             add(discordText);
             FlxTween.tween(discordText, { alpha: 1 }, fadeTime);
@@ -1029,7 +1045,7 @@ class SocialButton
 }
 enum CreditsType
 {
-   Plus; EKACreator; Dev; Translator; Contributor; BetaTester; SpecialThanks;
+   Plus; Dev; Translator; Contributor; BetaTester; SpecialThanks;
 }
 enum State
 {

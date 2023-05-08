@@ -34,10 +34,10 @@ class GameOverPolygonizedSubState extends MusicBeatSubstate
 		var sheetInfo:String = '';
 		switch (char)
 		{
-			case 'dave-angey' | 'dave-3d-recursed' | 'furiosity-dave' | 'furiosity-dave-alpha-4' | 'dave-angey-old' | 'dave-insanity-3d' | 'dave-3d-standing-bruh-what':
+			case 'dave-angey' | 'dave-3d-recursed':
 				deathSuffix = '-dave';
 				bgSuffix = 'void/redsky';
-			case 'bambi-3d' | 'bambi-unfair' | 'expunged' | 'bambi-3d-scrapped' | 'bambi-3d-old' | 'bambi-unfair-old' | 'bambi-3d-recursed':
+			case 'bambi-3d':
 				deathSuffix = '-bambi';
 				bgSuffix = 'cheating/cheater';
 		}
@@ -53,7 +53,7 @@ class GameOverPolygonizedSubState extends MusicBeatSubstate
 
 		bg = new FlxSprite(-600, -200).loadGraphic(Paths.image('backgrounds/$bgSuffix', 'shared'));
 		bg.scrollFactor.set();
-		bg.antialiasing = false;
+		bg.antialiasing = FlxG.save.data.globalAntialiasing;
 		bg.color = FlxColor.multiply(bg.color, FlxColor.fromRGB(50, 50, 50));
 		bg.alpha = 0;
 		bg.setGraphicSize(Std.int(bg.width * 1.5));
@@ -103,7 +103,7 @@ class GameOverPolygonizedSubState extends MusicBeatSubstate
 					polygonizedText = new FlxText(0, 0, FlxG.width, LanguageManager.getTextString('3d_gameOver_polygonized'), 32);
 					polygonizedText.setFormat(Paths.font('comic.ttf'), 40, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					polygonizedText.borderSize = 2.5;
-					polygonizedText.antialiasing = true;
+					polygonizedText.antialiasing = FlxG.save.data.globalAntialiasing;
 					polygonizedText.screenCenter();
 					polygonizedText.scrollFactor.set();
 					polygonizedText.scale.set();
@@ -124,7 +124,7 @@ class GameOverPolygonizedSubState extends MusicBeatSubstate
 						restartText = new FlxText(0, 0, FlxG.width, LanguageManager.getTextString('3d_gameOver_restart'), 32);
 						restartText.setFormat(Paths.font('comic.ttf'), 40, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 						restartText.borderSize = 2.5;
-						restartText.antialiasing = true;
+						restartText.antialiasing = FlxG.save.data.globalAntialiasing;
 						restartText.screenCenter();
 						restartText.y += 300;
 						restartText.scrollFactor.set();

@@ -49,6 +49,8 @@ class MusicBeatState extends FlxUIState
 			stepHit();
 
 		super.update(elapsed);
+
+		FlxG.autoPause = FlxG.save.data.autoPause;
 	}
 
 	private function updateBeat():Void

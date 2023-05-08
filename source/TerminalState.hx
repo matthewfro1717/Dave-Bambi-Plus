@@ -1,5 +1,4 @@
 import flixel.math.FlxMath;
-import flixel.math.FlxMath;
 import flixel.group.FlxGroup;
 import sys.io.File;
 import lime.app.Application;
@@ -112,7 +111,7 @@ class TerminalState extends MusicBeatState
         CommandList.push(new TerminalCommand("characters", LanguageManager.getTerminalString("term_char_ins"), function(arguments:Array<String>)
         {
             UpdatePreviousText(false); //resets the text
-            UpdateText("\ndave.dat\nbambi.dat\ntristan.dat\nexpunged.dat\nexbungo.dat\nrecurser.dat\nmoldy.dat\nshaggy.dat");
+            UpdateText("\ndave.dat\nbambi.dat\ntristan.dat\nexpunged.dat\nexbungo.dat\nrecurser.dat\nmoldy.dat");
         }));
         CommandList.push(new TerminalCommand("admin", LanguageManager.getTerminalString("term_admin_ins"), function(arguments:Array<String>)
         {
@@ -196,15 +195,7 @@ class TerminalState extends MusicBeatState
                                 fancyOpenURL("https://www.youtube.com/watch?v=azMGySH8fK8");
                                 System.exit(0);
                             });
-                        case "shaggy.dat":
-                            UpdatePreviousText(false); //resets the text
-                            UpdateText(LanguageManager.getTerminalString("term_loading"));
-                            PlayState.globalFunny = CharacterFunnyEffect.Shaggy;
-                            PlayState.SONG = Song.loadFromJson("indignancy-mania");
-                            PlayState.SONG.validScore = false;
-                            PlayState.formoverride = 'shaggy';
-                            LoadingState.loadAndSwitchState(new PlayState());
-                   }
+                    }
                 }
                 else
                 {
@@ -215,6 +206,7 @@ class TerminalState extends MusicBeatState
         CommandList.push(new TerminalCommand("clear", LanguageManager.getTerminalString("term_clear_ins"), function(arguments:Array<String>)
         {
             previousText = "> ";
+            displayText.y = 0;
             UpdateText("");
         }));
         CommandList.push(new TerminalCommand("open", LanguageManager.getTerminalString("term_texts_ins"), function(arguments:Array<String>)
@@ -295,8 +287,6 @@ class TerminalState extends MusicBeatState
                     tx = "He will never be <free>.";
                 case "p.r.a.e.m":
                     tx = "Name: Power Removal And Extraction Machine\nProgress: Complete\nNotes: Took longer than expected. Tristans 7th BIRTHDAY is in a month.";
-                case "shaggy":
-                    tx = "A man with like unlimited power, for some reason.\nWhat makes him so much powerful,\nbut I think his power come from someone's will or something.";
             }
             //case sensitive!!
             switch (arguments[0])
@@ -350,7 +340,6 @@ class TerminalState extends MusicBeatState
         displayText.text = previousText + val;
     }
 
-    //after all of my work this STILL DOESNT COMPLETELY STOP THE TEXT SHIT FROM GOING OFF THE SCREEN IM GONNA DIE
     public function UpdatePreviousText(reset:Bool)
     {
         previousText = displayText.text + (reset ? "\n> " : "");
@@ -377,6 +366,8 @@ class TerminalState extends MusicBeatState
         }
         previousText = finalthing;
         displayText.text = finalthing;
+        if(displayText.height > 720)
+          displayText.y = 720 - displayText.height;
     }
 
     override function update(elapsed:Float):Void
@@ -499,7 +490,7 @@ class TerminalState extends MusicBeatState
 		var camFollow = new FlxObject(FlxG.width / 2, -FlxG.height / 2, 1, 1);
 
 		#if windows
-		if (!FlxG.save.data.selfAwareness)
+		if (FlxG.save.data.selfAwareness)
 		{
 			expungedLines.push("Hacking into " + Sys.environment()["COMPUTERNAME"] + "...");
 		}

@@ -8,6 +8,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
+import flixel.FlxG;
 
 typedef SongHeading = {
 	var path:String;
@@ -29,6 +30,7 @@ class CreditsPopUp extends FlxSpriteGroup
 	{
 		super(x, y);
 		bg = new FlxSprite().makeGraphic(400, 50, FlxColor.WHITE);
+		bg.antialiasing = FlxG.save.data.globalAntialiasing;
 		add(bg);
 		var songCreator:String = '';
 		var songCreatorIcon:String = '';
@@ -45,24 +47,18 @@ class CreditsPopUp extends FlxSpriteGroup
 				songCreator = 'Oxygen';
 			case 'memory' | 'mealie':
 				songCreator = 'Alexander Cooper 19';
-			case 'glitch':
+			case 'glitch' | 'old-glitch':
 				songCreator = 'DeadShadow & PixelGH\nRemix by MoldyGH';
-				songCreatorIcon = 'DeadShadow & PixelGH';
-			case 'old-glitch':
-				songCreator = 'DeadShadow & PixelGH';
 				songCreatorIcon = 'DeadShadow & PixelGH';
 			case 'overdrive':
 				songCreator = 'Top 10 Awesome';
-			case 'supernovae':
-				songCreator = 'ArchWk\nRemix by MoldyGH';
-				songCreatorIcon = 'ArchWk';
-			case 'old-supernovae':
+			case 'supernovae' | 'old-supernovae':
 				songCreator = 'ArchWk\nRemix by MoldyGH';
 				songCreatorIcon = 'ArchWk';
 			case 'vs-dave-rap' | 'vs-dave-rap-two':
 				songCreator = 'Your mom';
-				case 'recursed' | 'blitz' | 'duper':
-					songCreator = 'Aadsta';
+			case 'recursed' | 'blitz' | 'duper':
+				songCreator = 'Aadsta';
 			case 'adventure':
 				songCreator = 'Ruby';
 			case 'bot-trot':
@@ -237,7 +233,7 @@ class CreditsPopUp extends FlxSpriteGroup
 		funnyText = new FlxText(1, 0, 650, text, 16);
 		funnyText.setFormat('Comic Sans MS Bold', 30, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		funnyText.borderSize = 2;
-		funnyText.antialiasing = true;
+		funnyText.antialiasing = FlxG.save.data.globalAntialiasing;
 		add(funnyText);
 	}
 	public function rescaleIcon()

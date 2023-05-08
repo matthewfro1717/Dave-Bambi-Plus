@@ -24,15 +24,13 @@ class CompatWarningState extends MusicBeatState
 
     public override function create():Void
     {
-		#if (flixel < "5.3.0")
         bg = new FlxBackdrop(Paths.image('ui/checkeredBG', 'preload'), 1, 1, true, true, 1, 1);
-        bg.antialiasing = true;
+        bg.antialiasing = FlxG.save.data.globalAntialiasing;
         add(bg);
-        #end
 
         warningBox = new FlxText(0, (FlxG.height / 2) - 300, FlxG.width, LanguageManager.getTextString("compat_warning"), 45);
         warningBox.setFormat("Comic Sans MS Bold", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        warningBox.antialiasing = true;
+        warningBox.antialiasing = FlxG.save.data.globalAntialiasing;
         warningBox.borderSize = 2;
         warningBox.screenCenter(X);
         add(warningBox);
@@ -42,7 +40,7 @@ class CompatWarningState extends MusicBeatState
             var optionText:FlxText = new FlxText((i * 75) - 50, FlxG.height / 2 - 150, FlxG.width, optionTranslate[i], 25);
             optionText.screenCenter(Y);
             optionText.setFormat("Comic Sans MS Bold", 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-            optionText.antialiasing = true;
+            optionText.antialiasing = FlxG.save.data.globalAntialiasing;
             optionText.borderSize = 2;
 
             textItems.push(optionText);
