@@ -40,15 +40,15 @@ class MusicPlayerState extends MusicBeatState
     var bg:FlxSprite;
 
     private var healthBarBG:FlxSprite;
-	private var healthBar:FlxBar;
+    private var healthBar:FlxBar;
 
     private var iconP1:HealthIcon;
-	private var iconP2:HealthIcon;
+    private var iconP2:HealthIcon;
 
     private var barText:FlxText;
 
     var checker:FlxBackdrop = new FlxBackdrop(Paths.image('ui/checkeredBG'), 0.2, 0.2, true, true);
-	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFfd719b);
+    var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFfd719b);
   
     override function create()
     {
@@ -113,9 +113,12 @@ class MusicPlayerState extends MusicBeatState
 		gradientBar.scrollFactor.set(0, 0);
 		gradientBar.antialiasing = FlxG.save.data.globalAntialiasing;
 
-		add(checker);
+	        #if (flixel < "5.3.0")
+	        checker:FlxBackdrop = new FlxBackdrop(Paths.image('ui/checkeredBG'), 0.2, 0.2, true, true);
 		checker.scrollFactor.set(0, 0.07);
 		checker.antialiasing = FlxG.save.data.globalAntialiasing;
+		add(checker);
+	        #end
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
