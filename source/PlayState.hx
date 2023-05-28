@@ -7022,6 +7022,10 @@ class PlayState extends MusicBeatState
 						health -= 0.07;
 						updateAccuracy();
 						return;
+					case 'phone-zardy':
+						var Animation:Bool = boyfriend.animation.getByName("singSmash") != null;
+						boyfriend.playAnim(boyfriend.animation.getByName("singSmash") == null ? 'singSmash' : 'singSmash', true);
+						return;
 				}
 			}
 			var deathSound:FlxSound = new FlxSound();
@@ -7298,6 +7302,10 @@ class PlayState extends MusicBeatState
 					}
 					boyfriend.playAnim('sing' + fuckingDumbassBullshitFuckYou, true);
 					cameraMoveOnNote(fuckingDumbassBullshitFuckYou, 'bf');
+				case 'phone-zardy':
+					var Animation:Bool = boyfriend.animation.getByName("singSmash") != null;
+					var heyAnimation:Bool = boyfriend.animation.getByName("hey") != null;
+					boyfriend.playAnim(Animation ? 'singSmash' : (heyAnimation ? 'hey' : (isShaggy ? 'singRIGHT' : 'singUPmiss')), true);
 				case 'phone':
 					var hitAnimation:Bool = boyfriend.animation.getByName("dodge") != null;
 					var heyAnimation:Bool = boyfriend.animation.getByName("hey") != null;
